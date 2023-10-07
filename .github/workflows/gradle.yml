@@ -38,15 +38,15 @@ jobs:
         docker build -t quick_start_infra .
         docker tag quick_start_infra sunil1369/quick_start_infra:${GITHUB_SHA::7}
         docker push sunil1369/quick_start_infra:${GITHUB_SHA::7}
-        - name: Deploy
-          uses: appleboy/ssh-action@master
-          with:
-            host: ec2-3-38-53-69.ap-northeast-2.compute.amazonaws.com
-            username: ubuntu
-            key: ${{ secrets.PRIVATE_KEY }}
-            envs: GITHUB_SHA
-            script: |
-              docker pull sunil1369/quick_start_infra:${GITHUB_SHA::7}
-              docker tag sunil1369/quick_start_infra:${GITHUB_SHA::7} quick_start_infra
-              docker stop server
-              docker run -d --rm --name server -p 8080:8080 quick_start_infra
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ec2-3-38-53-69.ap-northeast-2.compute.amazonaws.com
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }}
+        envs: GITHUB_SHA
+        script: |
+          docker pull sunil1369/quick_start_infra:${GITHUB_SHA::7}
+          docker tag sunil1369/quick_start_infra:${GITHUB_SHA::7} quick_start_infra
+          docker stop server
+          docker run -d --rm --name server -p 8080:8080 quick_start_infra
