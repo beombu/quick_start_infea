@@ -51,9 +51,6 @@ jobs:
     - name : docker Hub push
       run: docker push sunil1369/quick_start_infra
 
-  run-docker-image-on-ec2:
-    - needs: build-docker-image
-
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
