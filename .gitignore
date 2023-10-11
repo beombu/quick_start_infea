@@ -67,3 +67,5 @@ replay_pid*
 *.iml
 out
 gen
+
+rsa
