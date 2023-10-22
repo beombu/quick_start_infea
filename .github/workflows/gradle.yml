@@ -60,16 +60,16 @@ jobs:
     steps:
       # 1. 최신 이미지를 풀받습니다
       - name: docker pull
-        run: docker pull ${{ secrets.USERNAME }}/quick_start_infra
+        run: sudo docker pull ${{ secrets.USERNAME }}/quick_start_infra
 
       # 2. 기존의 컨테이너를 중지시킵니다
       - name: docker stop container
-        run: docker stop $(sudo docker ps -q) 2>/dev/null || true
+        run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
 
       # 3. 최신 이미지를 컨테이너화하여 실행시킵니다
       - name: docker run new container
-        run: docker run --name github-actions-demo --rm -d -p 8080:8080 ${{ secrets.USERNAME }}/quick_start_infra
+        run: sudo docker run --name quick_start_infra --rm -d -p 8080:8080 ${{ secrets.USERNAME }}/quick_start_infra
 
       # 4. 미사용 이미지를 정리합니다
       - name: delete old docker image
-        run: docker system prune -f
+        run: sudo docker system prune -f
